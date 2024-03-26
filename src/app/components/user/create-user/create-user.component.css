@@ -1,6 +1,18 @@
 #submitButton {
   display: block;
-  margin: 0 auto 20px;
+  margin: 2rem 0.5rem;
+}
+
+#cancelButton {
+  display: block;
+  margin: 2rem 0.5rem;
+}
+
+#buttonsCreateUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .acoes {

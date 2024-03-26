@@ -21,20 +21,18 @@
                 <div class="col">
                     <label class="form-label">Login</label>
                     <input type="text" id="userLogin" formControlName="login" class="form-control" placeholder="Digite seu login" required>
-                    <div class="invalid-feedback">
-                      Por favor, insira um endereço de e-mail válido.
-                    </div>
                 </div>
 
                 <div class="col">
                     <label class="form-label">Senha</label>
                     <input type="password" id="userPassword" formControlName="senha" class="form-control" placeholder="Digite sua senha" required>
-                    <div class="invalid-feedback">
-                      A senha deve ter pelo menos 8 caracteres e conter pelo menos uma letra maiúscula e um número.
-                    </div>
                 </div>
             </div>
-            <button id="submitButton" class="btn btn-lg btn-primary btn-block mt-5" type="submit">Criar Usuário</button>
+            <div id="buttonsCreateUser">
+              <button id="submitButton" class="btn btn-lg btn-primary" type="submit">Criar Usuário</button>
+              <button id="cancelButton" class="btn btn-lg btn-secondary" type="button" (click)="cancel()">Cancelar</button>
+          </div>
+
         </form>
     </div>
   </div>

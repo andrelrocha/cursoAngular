@@ -1,45 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormUtils } from './useCase/formUtils';
+import { CreateUser } from './useCase/createUser';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-user',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, HttpClientModule],
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.css']
+  styleUrls: ['./create-user.component.css'],
+  providers: [CreateUser]
 })
 export class CreateUserComponent implements OnInit {
   userForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private createUser: CreateUser) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
       nome: ['', Validators.required],
-      cpf: ['', Validators.required],
+      cpf: ['', [Validators.required, Validators.pattern('\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}')]],
       login: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[A-Z])(?=.*\\d).*$')]]
     });
   }
 
   onSubmit() {
-    console.log('Formulário submetido:');
-    console.log('Formulário:', this.userForm.value);
-    console.log('Nome:', this.userForm.value.nome);
-      console.log('CPF:', this.userForm.value.cpf);
-      console.log('Login:', this.userForm.value.login);
-      console.log('Senha:', this.userForm.value.senha);
+    this.createUser.onSubmit(this.userForm);
+  }
 
-
-    if (this.userForm.valid) {
-      console.log('Formulário válido:');
-      console.log('Nome:', this.userForm.value.nome);
-      console.log('CPF:', this.userForm.value.cpf);
-      console.log('Login:', this.userForm.value.login);
-      console.log('Senha:', this.userForm.value.senha);
-    } else {
-      console.log('Formulário inválido:');
-      console.log('Erros:', this.userForm.errors);
-    }
+  cancel() {
+    FormUtils.cancel(this.userForm);
   }
 }

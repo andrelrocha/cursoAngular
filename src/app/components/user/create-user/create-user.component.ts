@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FormUtils } from './useCase/formUtils';
+import { FormUtils } from '../../../utils/formUtils';
 import { CreateUser } from './useCase/createUser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [ReactiveFormsModule, HttpClientModule],
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
-  providers: [CreateUser]
+  providers: [CreateUser, FormUtils]
 })
 export class CreateUserComponent implements OnInit {
   userForm: FormGroup = new FormGroup({});

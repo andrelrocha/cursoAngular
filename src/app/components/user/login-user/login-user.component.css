@@ -3,23 +3,11 @@
   margin: 2rem 0.5rem;
 }
 
-#cancelButton {
-  display: block;
-  margin: 2rem 0.5rem;
-}
-
-#buttonsCreateUser {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  align-content: center;
-}
-
-.criar-user {
+.login-user {
   padding: 2rem 0;
 }
 
-.criar-user form {
+.login-user form {
   background: #C4EDFF;
 
   border: none;
@@ -31,13 +19,13 @@
   padding: 2rem;
 }
 
-.criar-user form label {
+.login-user form label {
   color: #154580;
   font-weight: bold;
   margin: 0 0 1rem;
 }
 
-.criar-user form .input {
+.login-user form .input {
   border: none;
   height: 40px;
   padding: 1rem 2rem;

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FormUtils } from '../../../../utils/formUtils';
 
 @Injectable()
 export class CreateUser {
@@ -23,9 +24,9 @@ export class CreateUser {
         .subscribe({
           next: (response: any) => {
             console.log('Usuário criado com sucesso!', response);
-            alert(`Bem-vindo ${response.login}`);
+            alert(`Bem-vindo ${response.name}`);
             userForm.reset();
-            //window.location.href = 'http://localhost:1313/login';
+            //window.location.href = 'http://localhost:4200/login';
           },
           error: (error: any) => {
             if (error.status === 400 && error.error instanceof Array) {
@@ -39,41 +40,7 @@ export class CreateUser {
 
     } else {
       console.log('Formulário inválido!');
-      this.logValidationErrors(userForm);
+      FormUtils.logValidationErrors(userForm);
     }
-  }
-
-  private logValidationErrors(group: FormGroup): void {
-    Object.keys(group.controls).forEach((key: string) => {
-      const abstractControl = group.get(key);
-      if (abstractControl != null && abstractControl.invalid) {
-        console.log('Campo inválido:', key);
-        console.log('Erros:', abstractControl.errors);
-
-        if (abstractControl?.errors?.['required']) {
-          alert(`O campo ${key} é obrigatório.`);
-        }
-
-        if (abstractControl.errors?.['email']) {
-          alert('Por favor, insira um endereço de e-mail válido.');
-        }
-
-        const erroTamanho = abstractControl.errors?.['minlength'];
-        const erroPadrao = abstractControl.errors?.['pattern'];
-
-        if (erroTamanho || erroPadrao) {
-          console.log('Erro de tamanho ou padrão:', erroTamanho || erroPadrao);
-          if (erroPadrao['requiredPattern'] === '^(?=.*[A-Z])(?=.*\\d).*$') {
-            alert('A senha deve ter pelo menos 8 caracteres e conter pelo menos uma letra maiúscula e um número.');
-          } else if (erroPadrao['requiredPattern'] === '^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$') {
-            alert('O CPF deve seguir o formato 999.999.999-99.');
-          }
-
-          if (erroTamanho) {
-            alert(`O campo ${key} deve ter pelo menos ${erroTamanho.requiredLength} caracteres.`);
-          }
-        }
-        }
-    });
   }
 }
